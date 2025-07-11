@@ -2,26 +2,22 @@ const express = require('express');
 const router = express.Router();
 const Task = require('../models/Task');
 
-// GET all tasks
-router.get('/', async (req, res) => {
-  try {
-    const tasks = await Task.find().sort({ createdAt: -1 });
-    res.json(tasks);
-  } catch (err) {
-    res.status(500).json({ error: 'Server error' });
-  }
-});
-
-// POST new task
 router.post('/', async (req, res) => {
   try {
-    console.log('Incoming data:', req.body);
     const { title } = req.body;
+    console.log("Incoming data:", req.body);
+
+    if (!title || title.trim() === '') {
+      return res.status(400).json({ error: "Title is required" });
+    }
+
     const newTask = new Task({ title });
-    await newTask.save();
-    res.status(201).json(newTask);
+    const savedTask = await newTask.save();
+
+    res.status(201).json(savedTask);
   } catch (err) {
-    res.status(400).json({ error: 'Invalid data' });
+    console.error("Error saving task:", err);
+    res.status(500).json({ error: "Failed to save task" });
   }
 });
 

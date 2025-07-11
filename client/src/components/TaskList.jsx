@@ -1,12 +1,16 @@
-export default function TaskList({ tasks, onDelete }) {
+function TaskList({ tasks, onDelete }) {
+  if (!Array.isArray(tasks)) return <p>No tasks yet</p>;
+
   return (
-    <ul className="task-list">
-      {tasks.map((task, index) => (
-        <li key={index}>
-          {task}
-          <button onClick={() => onDelete(index)}>❌</button>
+    <ul>
+      {tasks.map((task, i) => (
+        <li key={task._id || i}>
+          {task.title}
+          <button onClick={() => onDelete(i)}>Delete</button>
         </li>
       ))}
     </ul>
   );
 }
+
+export default TaskList;
