@@ -32,6 +32,7 @@ router.post("/login", async (req, res) => {
       expiresIn: "1h"
     });
 
+    console.log("Token generated for user:", user.email, "Token:", token); // Moved here for testing
     res.json({ token });
   } catch (err) {
     res.status(500).json({ error: "Server error" });

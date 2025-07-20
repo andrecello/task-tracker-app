@@ -1,23 +1,35 @@
 const express = require('express');
 const router = express.Router();
 const Task = require('../models/Task');
+const auth = require("../middleware/auth");
 
-router.post('/', async (req, res) => {
+// ✅ Apply auth middleware to all routes before defining them
+router.use(auth);
+
+// Create a new task
+router.post("/", async (req, res) => {
+  const { title } = req.body;
+
   try {
-    const { title } = req.body;
-    console.log("Incoming data:", req.body);
-
-    if (!title || title.trim() === '') {
-      return res.status(400).json({ error: "Title is required" });
-    }
-
-    const newTask = new Task({ title });
-    const savedTask = await newTask.save();
-
-    res.status(201).json(savedTask);
+    const newTask = new Task({
+      title,
+      userId: req.userId, // 👈 Comes from decoded JWT
+    });
+    const saved = await newTask.save();
+    res.json(saved);
   } catch (err) {
     console.error("Error saving task:", err);
-    res.status(500).json({ error: "Failed to save task" });
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// Get all tasks for the logged-in user
+router.get("/", async (req, res) => {
+  try {
+    const tasks = await Task.find({ userId: req.userId });
+    res.json(tasks);
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
   }
 });
 
