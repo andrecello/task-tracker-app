@@ -1,5 +1,9 @@
 const jwt = require("jsonwebtoken");
 
+// This runs BEFORE protected routes to verify the user
+// Checks for valid JWT token
+// If valid: allows access (calls next())  
+// If invalid: blocks access (returns error)
 function auth(req, res, next) {
   const token = req.header("Authorization")?.split(" ")[1];
   if (!token) return res.status(401).json({ error: "Access denied" });
