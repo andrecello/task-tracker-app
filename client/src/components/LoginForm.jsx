@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function LoginForm() {
+function LoginForm({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -24,6 +24,11 @@ function LoginForm() {
         localStorage.setItem('token', data.token);
         setMessage('✅ Login successful!');
         console.log('Token saved:', data.token);
+        
+        // Notify parent component about successful login
+        if (onLogin) {
+          onLogin();
+        }
       } else {
         setMessage(`❌ ${data.error}`);
       }
