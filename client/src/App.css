@@ -1,34 +1,82 @@
-.App {
-  font-family: sans-serif;
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+/* CSS Variables for theming */
+:root {
+  /* Light theme (default) */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9f9f9;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --border-color: #ccc;
+  --success-bg: #d4edda;
+  --error-bg: #f8d7da;
+  --button-primary: #007bff;
+  --button-success: #28a745;
+  --button-danger: #dc3545;
 }
 
-.task-form {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 1rem;
+/* Dark theme */
+[data-theme="dark"] {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --border-color: #555;
+  --success-bg: #155724;
+  --error-bg: #721c24;
+  --button-primary: #0d6efd;
+  --button-success: #198754;
+  --button-danger: #dc3545;
 }
 
-.task-form input {
-  flex: 1;
-  padding: 8px;
-}
-
-.task-form button {
-  padding: 8px 12px;
-}
-
-.task-list {
-  list-style: none;
+/* Apply theme variables */
+body {
+  margin: 0;
   padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.task-list li {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 10px;
-  border-bottom: 1px solid #ddd;
+.App {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Update all your components to use variables */
+h1, h2, h3, h4, h5, h6, p, div, span, label {
+  color: var(--text-primary);
+}
+
+input, textarea, select {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
+  padding: 8px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  border-color: var(--button-primary);
 }

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import LogoutButton from './components/LogoutButton';
+import ThemeToggle from './components/ThemeToggle';
 import TaskList from './components/TaskList';
 import './App.css';
 
@@ -32,7 +33,10 @@ function App() {
       <div className="App">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px' }}>
           <h1>QuickTask 📝 - Dashboard</h1>
-          <LogoutButton onLogout={handleLogout} />
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <ThemeToggle />
+            <LogoutButton onLogout={handleLogout} />
+          </div>
         </div>
         
         <TaskList />
@@ -43,7 +47,10 @@ function App() {
   // Show login/register forms
   return (
     <div className="App">
-      <h1>QuickTask 📝 - Authentication</h1>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px' }}>
+        <h1>QuickTask 📝 - Authentication</h1>
+        <ThemeToggle />
+      </div>
       
       <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
         <RegisterForm />
